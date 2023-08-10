@@ -6,14 +6,10 @@ public:
         for(int i=0;i<nums.size();i++){
             if(nums[i]==1){
                 streak++;
+                higheststreak=max(streak,higheststreak);
             }
-            else if(nums[i]==0){
-                streak=0;
-            }
-            
-            if(streak>higheststreak){
-                higheststreak=streak;
-            }
+           else 
+               streak=0;
         }
         return higheststreak;
     }
