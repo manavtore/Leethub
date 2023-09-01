@@ -1,21 +1,25 @@
 class Solution {
 public:
     int thirdMax(vector<int>& nums) {
-        sort(nums.begin(), nums.end(), greater<int>());
-        int maxVal = nums[0];
-        int count = 1;
+      long long firstmax= LLONG_MIN, secondmax = LLONG_MIN, thirdmax = LLONG_MIN;
 
-        for (int i = 1; i < nums.size(); i++) {
-            if (nums[i] < maxVal) {
-                maxVal = nums[i];
-                count++;
-            }
+      for(int num : nums){
+       if(num == firstmax || num == secondmax || num == thirdmax ){
+           continue;
+       }
 
-            if (count == 3) {
-                return maxVal;
-            }
-        }
+         if(num > firstmax){
+             thirdmax = secondmax;
+             secondmax = firstmax;
+             firstmax = num;
+         }else if(num > secondmax ){
+           thirdmax = secondmax;
+           secondmax = num;
+         }else if(num > thirdmax){
+           thirdmax = num;
+         }
 
-        return nums[0]; 
+      }
+      return (thirdmax != LLONG_MIN) ? static_cast<int>(thirdmax) : static_cast<int>(firstmax); 
 }
 };
