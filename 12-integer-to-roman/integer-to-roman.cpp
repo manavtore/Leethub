@@ -2,16 +2,17 @@ class Solution {
 public:
     string intToRoman(int num) {
         string res="";
-        int value[]={1000,900,500,400,100,90,50,40,10,9,5,4,1};
-       string symbol[]={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"
-};
-
-        for(int i=0;num!=0;i++){
-            while(num>=value[i]){
+        vector<string> str = {"I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"};
+        vector<int> value = {1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000};
+        int i=value.size()-1;
+       while(i>=0){
+            if(num<value[i]) i--;
+            else{
                 num-=value[i];
-                res+=symbol[i];
+                res+=str[i];
             }
-        }
+       }
+     
         return res;
     }
 };
