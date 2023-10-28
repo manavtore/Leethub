@@ -5,26 +5,24 @@ public:
         unordered_map<char,int> frequency;
 
 
-        for(int i=0;i<n;i++){
-            if(frequency.find(s[i])!=frequency.end()){
-                frequency[s[i]]++;
-            }else {
-                frequency[s[i]]=1;
-            }
+        for(char c: s){
+          frequency[c]++;        
         }
         
-        vector<pair<char,int>> freqVector(frequency.begin(),frequency.end());
-        
-        sort(freqVector.begin(),freqVector.end(),[](const auto& a,const auto& b){
-            return a.second>b.second;
-        });
+        priority_queue<pair<int,char>> pq;
+        for(auto pair: frequency){
+            pq.push({pair.second,pair.first});
+        }
+
 
         string result;
+        pair<int,char> current;
 
-        for(const auto& pair: freqVector){
-            result += string(pair.second,pair.first);
+        while(!pq.empty()){
+            current=pq.top();
+            pq.pop();
+            result.append(current.first,current.second);
         }
-        
         return result;
 
         
