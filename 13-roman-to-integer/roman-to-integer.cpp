@@ -14,15 +14,11 @@ public:
       int prevalue =0;
       int result =0;
 
-      for(int i=s.length();i>=0;i--){
-          int value = roman[s[i]];
-          if(value<prevalue){
-              result-=value;
-          }else{
-              result+=value;
+      for(char c:s){
+          int value = roman[c];
+          result += (value>prevalue)?(value-2*prevalue):value;
+          prevalue=value;
           }
-          prevalue =value ;
-      }
       return result;
         
     }
