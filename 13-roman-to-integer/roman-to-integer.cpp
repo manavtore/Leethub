@@ -11,15 +11,19 @@ public:
             {'D',500},
             {'M',1000}
         };
-        int result=0;
-        int prevalue=0;
+      int prevalue =0;
+      int result =0;
 
-        for(char c:s){
-            int value=roman[c];
-            result+=(value>prevalue)?(value-2*prevalue):value;
-            prevalue=value;
-        }
-        return result;
+      for(int i=s.length();i>=0;i--){
+          int value = roman[s[i]];
+          if(value<prevalue){
+              result-=value;
+          }else{
+              result+=value;
+          }
+          prevalue =value ;
+      }
+      return result;
         
     }
 };
