@@ -1,28 +1,22 @@
 class Solution {
 public:
-   
     int beautySum(string s) {
         int res = 0;
-        for(int i=0;i<s.length();i++){
-              vector<int>map(26,0);
-            for(int j=i;j<s.length();j++){
-                  map[s[j]-'a']++;
-                  res = res + beauty(map);
-
+        for (int i = 0; i < s.length(); i++) {
+            unordered_map<char,int> map;
+            for (int j = i; j < s.length(); j++) {
+                map[s[j]]++;
+                int maxcount=0,mincount=INT_MAX;
+                 for(auto it: map){
+                      maxcount = max(maxcount,it.second);
+                      mincount = min(mincount,it.second);
             }
-        }
+              res += maxcount - mincount;
+            }
+           
 
+           
+        }
         return res;
-    }
-     int beauty(vector<int> map){
-        int maxf=-1;
-        int lowf = 1e9;
-       for(int i=0;i<26;i++){
-           maxf = max(maxf,map[i]);
-           if(map[i]>=1){
-               lowf = min(lowf,map[i]);
-           }
-       }
-       return maxf-lowf;
     }
 };
