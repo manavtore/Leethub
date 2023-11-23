@@ -1,14 +1,30 @@
 class Solution {
 public:
     bool check(vector<int>& arr){
-         sort(arr.begin(),arr.end());
-         int diff=arr[1]-arr[0];
-         for(int i=2;i<arr.size();i++){
-         if(arr[i]-arr[i-1]!=diff){
-             return false;
-                 }
-         }
-     return true;
+         int maxelement= INT_MIN;
+         int minelement = INT_MAX;
+         int n = arr.size();
+         unordered_set<int> element;
+
+        for(auto value: arr){
+            maxelement = max(maxelement,value);
+            minelement = min(minelement,value);
+            element.insert(value);
+        } 
+          
+          
+
+          if((maxelement-minelement)%(n-1)!=0) return false;
+          int diff = (maxelement - minelement)/(n-1) ;
+          int current = minelement + diff;
+
+          while(current<maxelement){
+              if(element.find(current)==element.end()) return false;
+              current+=diff;
+          }
+          return true;
+        
+        
     }
 
 
