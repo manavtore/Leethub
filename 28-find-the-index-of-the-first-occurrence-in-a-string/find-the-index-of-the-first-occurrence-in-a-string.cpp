@@ -2,13 +2,13 @@ class Solution {
 public:
     int strStr(string haystack, string needle) {
 
-        size_t foundIndex = haystack.find(needle);
+        // size_t foundIndex = haystack.find(needle);
 
-        if(foundIndex != string::npos ) {
-            return foundIndex;
-        }
-        return -1;
-        
+        // if(foundIndex != string::npos ) {
+        //     return foundIndex;
+        // }
+        // return -1;
+          return haystack.find(needle);
         
 
     }
