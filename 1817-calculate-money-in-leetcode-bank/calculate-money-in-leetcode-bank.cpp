@@ -1,14 +1,12 @@
 class Solution {
 public:
     int totalMoney(int n) {
-        long long int total=0;
-        int initial=1;
-        for(int days=1;days<=n;days++){
-            total+= initial + ((days - 1) %7);
-            if(days%7==0){
-                initial++;
-            }
+        int k=n/7;
+        int sum=(k*(2*28 + (k-1)*7))/2;
+
+        for(int day=0;day<n%7;day++){
+            sum += (k+1) +day;
         }
-        return total;
+        return sum;
     }
 };
