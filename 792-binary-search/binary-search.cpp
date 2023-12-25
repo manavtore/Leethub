@@ -2,15 +2,14 @@ class Solution {
 public:
 
     int binarysearch(vector<int> arr,int low ,int high,int target){
-        // if (arr.size()==1 && arr[0]==target) return 0;
         while(low<=high){
             int mid =(low+high)/2;
             if(arr[mid]==target){
                 return mid;
             }else if(target<arr[mid]){
-                high=mid-1;
+                return binarysearch(arr,low,mid-1,target);
             }else{
-                low=mid+1;
+              return  binarysearch(arr,mid+1,high,target);
             }
         }
         return -1;
