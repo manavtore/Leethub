@@ -4,8 +4,13 @@ public:
         int ans=INT_MAX;
         int low=0;
         int high=nums.size()-1;
+       
         while(low<=high){
             int mid= (low+high)/2;
+             if(nums[low]<=nums[high]){
+            ans=min(ans,nums[low]);
+            return ans;
+              }
             if(nums[low]<=nums[mid]){
                 ans=min(nums[low],ans);
                 low=mid+1;
