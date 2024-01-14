@@ -10,11 +10,12 @@ public:
             freq1[word1[i]-'a']++;
             freq2[word2[i]-'a']++;
         }
-       for(int i=0;i<26;i++){
+        for(int i=0;i<26;i++){
            if( (freq1[i]!=0 && freq2[i]==0) || (freq2[i]!=0 && freq1[i]==0)){
                return false;
            }
        }
+       
        sort(freq1.begin(),freq1.end());
        sort(freq2.begin(),freq2.end());
 
@@ -23,6 +24,7 @@ public:
                return false;
            }
        }
+       
         return true;
     }
 };
