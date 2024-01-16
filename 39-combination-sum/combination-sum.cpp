@@ -1,26 +1,23 @@
 class Solution {
 public:
-    void findCombinations(vector<vector<int>>& combinations,vector<int>& current,vector<int>& candidates,int index,int target,int sum){
-        if(index==candidates.size()) return;
-        if(sum==target){
-            combinations.push_back(current);
+    void generateCombo(int index,int target,vector<vector<int>>& combi,vector<int>& candidates,vector<int>& current){
+        if(candidates.size()==index){
+            if(target==0){
+                combi.push_back(current);
+            }
             return;
         }
-        if(sum<=target){
+        if(target>=candidates[index]){
             current.push_back(candidates[index]);
-            findCombinations(combinations,current,candidates,index,target,sum+candidates[index]);
+            generateCombo(index,target-candidates[index],combi,candidates,current);
             current.pop_back();
-            
         }
-        findCombinations(combinations,current,candidates,index+1,target,sum);
-
-        
-        
+        generateCombo(index+1,target,combi,candidates,current);
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>> combinations;
+        vector<vector<int>> combi;
         vector<int> current;
-        findCombinations(combinations,current,candidates,0,target,0);
-        return combinations;
+        generateCombo(0,target,combi,candidates,current);
+        return combi;
     }
 };
