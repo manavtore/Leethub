@@ -8,19 +8,15 @@ public:
     }
     void generateSubsets(vector<int>& nums,vector<vector<int>>& result,vector<int>& subsets,int index){
 
-        if(checkDuplicate(subsets,result)==true){
+        if(index==nums.size()){
             result.push_back(subsets);
+            return;
         }
         
-        for(int i=index;i<nums.size();i++){
-            subsets.push_back(nums[i]);
-            generateSubsets(nums,result,subsets,i+1);
+            subsets.push_back(nums[index]);
+            generateSubsets(nums,result,subsets,index+1);
             subsets.pop_back();
-        }
-
-    }
-    bool checkDuplicate(vector<int>& subsets,vector<vector<int>>& result){
-       return find(result.begin(),result.end(),subsets) == result.end();
+            generateSubsets(nums,result,subsets,index+1);
 
     }
 };
