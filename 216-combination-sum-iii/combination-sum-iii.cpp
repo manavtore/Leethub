@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void generateCombo(int k,int n,vector<int>& current,vector<vector<int>>& ans,int sum,int idxel,vector<int>& nums){
+    void generateCombo(int k,int n,vector<int>& current,vector<vector<int>>& ans,int sum,int idxel){
         if(current.size()==k && sum==n){
             ans.push_back(current);
             return;
@@ -8,9 +8,9 @@ public:
         if((current.size()+1)>k || sum>n ){
             return;
         }
-            for(int i=idxel;i<nums.size();i++){
-            current.push_back(nums[i]);
-            generateCombo(k,n,current,ans,sum+nums[i],i+1,nums);
+            for(int i=idxel;i<=9;i++){
+            current.push_back(i);
+            generateCombo(k,n,current,ans,sum+i,i+1);
             current.pop_back();
             }
                 
@@ -18,8 +18,7 @@ public:
     vector<vector<int>> combinationSum3(int k, int n) {
         vector<vector<int>> ans;
         vector<int> current;
-        vector<int> nums{1,2,3,4,5,6,7,8,9};
-        generateCombo(k,n,current,ans,0,0,nums);
+        generateCombo(k,n,current,ans,0,1);
         return ans;
     }
 };
