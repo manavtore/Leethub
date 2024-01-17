@@ -6,13 +6,10 @@ public:
             freq[arr[i]]++;
         }
         unordered_set<int> occurences;
-        for(const auto& entry:freq){
-            if(occurences.find(entry.second)!=occurences.end()){
-                return false;
-            }
+        for(auto entry:freq){
             occurences.insert(entry.second);
             }
         
-        return true;
+        return occurences.size()==freq.size();
     }
 };
