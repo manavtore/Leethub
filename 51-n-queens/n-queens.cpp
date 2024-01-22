@@ -1,40 +1,33 @@
 class Solution {
 public:
-    bool isSafe(vector<string>& board,int row,int col,int& n){
-         for(int i=0;i<row;i++){
-             if(board[i][col]=='Q'){
-                 return false;
-             }
-         }
-
-         for(int i=row , j=col;i>=0 && j>=0;i-- ,j--){
-             if(board[i][j]=='Q') return false;
-         }
-
-         for(int i=row ,j=col;i>=0 && j<n;i--,j++){
-             if(board[i][j]=='Q') return false;
-         }
-         return true;
-
-    }
-    void solveNQueens(int& n,int row,vector<vector<string>>& ans,vector<string>& board){
-        if(row==n){
+    void solveQueens(int n,int col,vector<vector<string>>& ans,vector<int>& left,vector<int>& upperleft,vector<int>& lowerleft,vector<string>& board) {
+        if(col==n){
             ans.push_back(board);
             return;
         }
-        for(int col=0;col<n;col++){
-            if(isSafe(board,row,col,n)){
+        for(int row=0;row<n;row++){
+            if(left[row]==0 && upperleft[row+col]==0 && lowerleft[n-1+col-row]==0 ){
                 board[row][col]='Q';
-                solveNQueens(n,row+1,ans,board);
+                left[row]=1;
+                upperleft[row+col]=1;
+                lowerleft[n-1+col-row]=1;
+                solveQueens(n,col+1,ans,left,upperleft,lowerleft,board);
                 board[row][col]='.';
+                left[row]=0;
+                upperleft[row+col]=0;
+                lowerleft[n-1+col-row]=0;
+
             }
         }
     }
   
+  
     vector<vector<string>> solveNQueens(int n) {
         vector<vector<string>> ans;
         vector<string> board(n, string(n, '.'));
-        solveNQueens(n,0,ans,board);
+        vector<int> left(n,0),upperleft(2*n-1,0),lowerleft(2*n,0);
+
+        solveQueens(n,0,ans,left,upperleft,lowerleft,board);
         return ans;
         
         }
