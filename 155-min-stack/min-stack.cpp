@@ -24,17 +24,11 @@ public:
     }
     
     int top() {
-       if(!mainstack.empty()){
            return mainstack.top();
-       }
-       return -1;
     }
     
     int getMin() {
-        if(!minstack.empty()){
             return minstack.top();
-        }
-        return -1;
     }
 };
 
