@@ -1,20 +1,19 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        if(s.length()==0) return 0;
-        int maxLength=INT_MIN;
-        int l=0;
-        unordered_set<int> set;
-        for(int r=0;r<s.length();r++){
-            if(set.find(s[r])!=set.end()){
-                while(l<r && set.find(s[r])!= set.end()){
-                    set.erase(s[l]);
-                    l++;
-                }
+        vector<int> mpp(256,-1);
+        int r=0,l=0;
+        int n=s.length();
+        int maxlength=0;
+        while(r<n){
+            if(mpp[s[r]] != -1){
+                l=max(mpp[s[r]]+1,l);
             }
-            set.insert(s[r]);
-            maxLength=max(maxLength,r-l+1);
+            mpp[s[r]]=r;
+            maxlength=max(maxlength,r-l+1);
+            r++;
         }
-        return maxLength;
+        return maxlength;
+
     }
 };
