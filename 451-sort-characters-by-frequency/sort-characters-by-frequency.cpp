@@ -1,31 +1,18 @@
 class Solution {
 public:
     string frequencySort(string s) {
-        int n=s.length();
-        unordered_map<char,int> frequency;
-
-
-        for(char c: s){
-          frequency[c]++;        
+        unordered_map<char,int> freq;
+        for(auto ch:s){
+            freq[ch]++;
         }
-        
-        priority_queue<pair<int,char>> pq;
-        for(auto pair: frequency){
-            pq.push({pair.second,pair.first});
+        vector<vector<int>> DataBucket(s.length()+1);
+        for(auto [c,fq]: freq) DataBucket[fq].push_back(c);
+        string ans;
+        for(int i=s.length();i>0;i--){
+            for(auto c:DataBucket[i]){
+                ans.append(i,c);
+            }
         }
-
-
-        string result;
-        pair<int,char> current;
-
-        while(!pq.empty()){
-            current=pq.top();
-            pq.pop();
-            result.append(current.first,current.second);
-        }
-        return result;
-
-        
-        
+        return ans;
     }
 };
