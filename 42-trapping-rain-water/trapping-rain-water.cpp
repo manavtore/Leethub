@@ -3,10 +3,8 @@ public:
     int trap(vector<int>& height) {
         int n=height.size();
         if(n<3)return 0 ;
-        int i=1;
-        int j=n-2;
-        int maxleft = height[0];
-        int maxright = height[n-1];
+        int i=1 ,j=n-2;
+        int maxleft = height[0], maxright = height[n-1];
         int ans=0;
         while(i<=j){
             if(maxleft < maxright){
