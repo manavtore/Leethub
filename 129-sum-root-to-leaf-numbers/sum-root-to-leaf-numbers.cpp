@@ -11,24 +11,16 @@
  */
 class Solution {
 public:
-    void cal(TreeNode* root,int current,int& sum){
-        current =(current*10)+root->val;
-        if(root->left==nullptr && root->right==nullptr){
-            sum+=current;
-        }
+    int sum(TreeNode* root,int currentsum){
+        if(root==nullptr) return 0;
+        currentsum=currentsum*10+root->val;
+        if(root->left==nullptr && root->right==nullptr) return currentsum;
         
-        if(root->left!=nullptr){
-            cal(root->left,current,sum);
-        }
-        if(root->right!=nullptr){
-            cal(root->right,current,sum);
-        }
+        int leftsum = sum(root->left,currentsum);
+        int rightsum = sum(root->right,currentsum);
+        return leftsum+rightsum;
     }
     int sumNumbers(TreeNode* root) {
-        int sum =0;
-        if(root->left==nullptr && root->right==nullptr) return root->val;
-        cal(root,0,sum);
-
-        return sum;
+        return sum(root,0);
     }
 };
