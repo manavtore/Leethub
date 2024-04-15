@@ -11,16 +11,24 @@
  */
 class Solution {
 public:
-    int sum(TreeNode* root,int currentsum){
-        if(root==nullptr) return 0;
-        currentsum=currentsum*10+root->val;
-        if(root->left==nullptr && root->right==nullptr) return currentsum;
-        
-        int leftsum = sum(root->left,currentsum);
-        int rightsum = sum(root->right,currentsum);
-        return leftsum+rightsum;
-    }
     int sumNumbers(TreeNode* root) {
-        return sum(root,0);
+        int totalsum = 0;
+        queue<pair<TreeNode*,int>> q;
+        q.push({root,0});
+
+        while(!q.empty()){
+            auto [root,current] = q.front();
+            q.pop();
+            current = ( current * 10 ) + root->val;
+
+            if(root->left==nullptr && root->right==nullptr) totalsum += current;
+
+            if(root->left!=nullptr) q.push({root->left,current});
+            if(root->right!=nullptr) q.push({root->right,current});
+
+        }
+
+        return totalsum;
+        
     }
 };
