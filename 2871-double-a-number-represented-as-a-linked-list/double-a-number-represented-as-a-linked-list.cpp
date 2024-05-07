@@ -12,24 +12,24 @@ class Solution {
 public:
     ListNode* doubleIt(ListNode* head) {
         if(head==nullptr) return head;
-        ListNode* prev = nullptr;
         ListNode* curr = head;
         while(curr!=nullptr){
-            int value = curr->val*2;
-            if(value<10){
-               curr->val = value;
+            int newValue = curr->val * 2;
+            if(newValue<10){
+                curr->val = newValue;
             }else{
-                curr->val = value%10;
-                if(prev==nullptr){
-                     ListNode* newNode = new ListNode(1);
+                curr ->val = newValue%10;
+                if(curr==head){
+                    ListNode* newNode = new ListNode(1);
                     head = newNode;
-                    head -> next = curr;
-                }else{
-                    prev->val+= 1;
-                }    
+                    head ->next = curr;
+                }
             }
-            prev = curr ;
-                curr = curr->next;
+            if(curr->next!=nullptr && curr->next->val*2>=10){
+                curr->val+=1;
+            }
+
+            curr  = curr->next;
         }
         return head;
     }
