@@ -19,18 +19,17 @@ public:
             mp[inorder[i]]=i;
         }
 
-        return BuildTreeOnce(postorder,0,postorder.size()-1,inorder,0,inorder.size()-1,mp);
+        return buildTreeOnce(inorder,0,inorder.size()-1,postorder,0,postorder.size()-1,mp);
     }
-    TreeNode* BuildTreeOnce(vector<int>& postorder,int ps,int pEnd,vector<int>& inorder,int is,int iEnd,map<int,int>& mp){
-       if(ps>pEnd || is>iEnd) return nullptr;
+    TreeNode* buildTreeOnce(vector<int>& inorder,int instart,int inEnd,vector<int>& postorder,int pStart,int pEnd,map<int,int>& mp){
+        if(instart>inEnd || pStart>pEnd) return nullptr;
 
         TreeNode* root = new TreeNode(postorder[pEnd]);
-        int inRoot = mp[root->val];
-        int numsleft = inRoot - is;
+        int inRoot = mp[root -> val];
+        int numsleft = inRoot - instart;
 
-        root ->left =  BuildTreeOnce(postorder,ps,ps+numsleft-1,inorder,is,inRoot-1,mp);
-        root ->right = BuildTreeOnce(postorder,ps+numsleft,pEnd-1,inorder,inRoot+1,iEnd,mp);
-
+        root->left = buildTreeOnce(inorder,instart,inRoot-1,postorder,pStart,pStart+numsleft-1,mp);
+        root->right = buildTreeOnce(inorder,inRoot+1,inEnd,postorder,pStart+numsleft,pEnd-1,mp);
         return root;
     }
 };
