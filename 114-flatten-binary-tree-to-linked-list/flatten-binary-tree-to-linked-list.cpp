@@ -12,9 +12,8 @@
 class Solution {
     TreeNode* prev = nullptr;
 public:
-
     void flatten(TreeNode* root) {
-        if(root==nullptr) return ;
+        if(root==nullptr) return;
 
         flatten(root->right);
         flatten(root->left);
@@ -22,6 +21,5 @@ public:
         root->right = prev;
         root->left = nullptr;
         prev = root;
-        
     }
 };
