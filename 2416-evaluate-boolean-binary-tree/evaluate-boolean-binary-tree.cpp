@@ -11,22 +11,12 @@
  */
 class Solution {
 public:
-    bool valute(TreeNode* root){
-        if(root->val == 0){
-            return false;
-        }
-        if(root->val==1){
-            return true;
-        }
-        if(root->val ==3){
-            return valute(root->left) && valute(root->right);
-        }
-        if(root->val ==2){
-            return valute(root->left) || valute(root->right);
-        }
-        return true;
-    }
     bool evaluateTree(TreeNode* root) {
-        return valute(root);
+        if(root==nullptr || root->val==1 ) return true;
+        bool left = evaluateTree(root->left);
+        bool right = evaluateTree(root->right);
+        if(root->val==2) return left || right;
+        if(root->val==3) return left && right;
+        return false;
     }
 };
