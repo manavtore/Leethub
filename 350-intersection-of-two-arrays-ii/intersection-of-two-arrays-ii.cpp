@@ -4,7 +4,7 @@ public:
         unordered_map<int,int> mp;
         vector<int> ans;
 
-        for(auto it:nums1){
+        for(int it:nums1){
             mp[it]++;
         }
 
