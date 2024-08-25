@@ -10,20 +10,17 @@
  * };
  */
 class Solution {
-public:
-    void post(vector<int>& ans,TreeNode* root){
+    void bfs(vector<int>& ans,TreeNode* root){
         if(root==nullptr) return;
-        
-        post(ans,root->left);
-        
-        post(ans,root->right);
-        
+
+        if(root->left) bfs(ans,root->left);
+        if(root->right) bfs(ans,root->right);
         ans.push_back(root->val);
-        
     }
+public:
     vector<int> postorderTraversal(TreeNode* root) {
         vector<int> ans;
-        post(ans,root);
+        bfs(ans,root);
         return ans;
     }
 };
