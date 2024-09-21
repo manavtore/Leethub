@@ -1,28 +1,24 @@
 class Solution {
+    void dfs(int curr,int n,vector<int>& lexo){
+        if(curr>n) return;
+
+        lexo.push_back(curr);
+
+        for(int i=0;i<10;i++){
+            int next = curr * 10 +i;
+            if(next > n) return;
+            dfs(next,n,lexo);
+        }
+    }
 public:
     vector<int> lexicalOrder(int n) {
-        
-        int curr = 1;
         vector<int> lexo;
-        
 
-        for(int i=0;i<n;i++){
-            lexo.push_back(curr);
-            
-            if(curr*10<=n){
-                curr *= 10;
-            }else{
-                if(curr>=n) curr/=10;
-                
-                curr++;
+        for(int i=1;i<=9;i++){
+            if(i>n) break;
 
-                while(curr%10==0){
-                    curr/=10;
-                }
-
-            }
+            dfs(i,n,lexo);
         }
-        return lexo;
-
+        return lexo; 
     }
 };
