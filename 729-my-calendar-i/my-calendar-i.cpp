@@ -1,23 +1,54 @@
+class Tree{
+    public:
+    Tree* left;
+    Tree* right;
+    int start,end;
+
+    Tree(int start,int end){
+        this->start = start;
+        this->end = end;
+        left = nullptr;
+        right = nullptr;
+    }
+
+    bool insert(int start,int end){
+        Tree* curr = this;
+        while(true){
+
+            if(start>= curr->end){
+                if(!curr->right){
+                    curr->right = new Tree(start,end);
+                    return true;
+                }
+                curr = curr->right;
+            }else if(end<=curr->start){
+                if(!curr->left){
+                    curr->left = new Tree(start,end);
+                    return true;
+                }
+                curr = curr->left;
+            }else{
+                return false;
+            }
+        }
+
+    }
+};
 class MyCalendar {
 public:
-    vector<pair<int,int>> events;
+    Tree* root;
     MyCalendar() {
-        
+        root = nullptr;
     }
     
     bool book(int start, int end) {
         
-        for(const auto& event : events){
-
-            int eventStart = event.first;
-            int eventEnd = event.second;
-
-            if(max(eventStart,start)<min(eventEnd,end)){
-                return false;
-            }   
-        }
-        events.push_back({start,end});
+        if(!root){
+            root = new Tree(start,end);
             return true;
+        }
+
+        return root->insert(start,end);
     }
 };
 
