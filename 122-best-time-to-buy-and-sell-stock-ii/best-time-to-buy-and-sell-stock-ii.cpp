@@ -5,24 +5,27 @@ public:
 
         if(n==0) return 0;
 
-        vector<vector<int>> dp(n+1,vector<int>(2,-1));
+        vector<int> ahead(2,0), curr(2,0);
 
-        dp[n][0] = dp[n][1] = 0;
+
+
+        ahead[0] = ahead[1] = 0;
         int profit;
         for(int i=n-1;i>=0;i--){
             for(int buy=0;buy<=1;buy++){
                 if(buy==0){
-;
-                    profit = max(0 + dp[i+1][0], prices[i] + dp[i+1][1]);
+                   profit = max(0 + ahead[0], prices[i] + ahead[1]);
 
                 }
                 if(buy==1){
-                     profit = max(0 + dp[i+1][1], -prices[i] + dp[i+1][0]);
+                      profit = max(0 + ahead[1], -prices[i] + ahead[0]);
+                      
                 }
-                dp[i][buy] = profit;
+                curr[buy] = profit;
             }
+            ahead = curr;
         }
 
-         return dp[0][1];
+         return ahead[1];
     }
 };
