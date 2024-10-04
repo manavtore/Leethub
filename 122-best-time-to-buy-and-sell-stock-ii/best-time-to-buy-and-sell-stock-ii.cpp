@@ -7,25 +7,23 @@ public:
 
         vector<int> ahead(2,0), curr(2,0);
 
+        int currNotBuy=0 , currBuy = 0;
+        int aheadNotBuy = 0, aheadBuy = 0;
 
-
-        ahead[0] = ahead[1] = 0;
         int profit;
         for(int i=n-1;i>=0;i--){
-            for(int buy=0;buy<=1;buy++){
-                if(buy==0){
-                   profit = max(0 + ahead[0], prices[i] + ahead[1]);
+       
 
-                }
-                if(buy==1){
-                      profit = max(0 + ahead[1], -prices[i] + ahead[0]);
+             currBuy = max(0 + aheadBuy, -prices[i] + aheadNotBuy);
+
+           currNotBuy = max(0 + aheadNotBuy, prices[i] + aheadBuy);
                       
-                }
-                curr[buy] = profit;
-            }
-            ahead = curr;
+
+
+            aheadNotBuy = currNotBuy;
+            aheadBuy = currBuy;
         }
 
-         return ahead[1];
+         return aheadBuy;
     }
 };
