@@ -2,20 +2,22 @@ class Solution {
 public:
     int maxProfit(int k, vector<int>& prices) {
         int n = prices.size();
-        vector<vector<int>> dp(n+1,vector<int>(2*k+1,0));
+        vector<int> prev(2*k+1,0);
+        vector<int> curr(2*k+1,0);
 
         for(int ind = n-1;ind>=0;ind--){
             for(int Transaction=0;Transaction<2*k;Transaction++){
                 int profit;
              if(Transaction % 2==0){
-                 profit = max(-prices[ind] + dp[ind+1][Transaction+1],dp[ind+1][Transaction]);
+                 profit = max(-prices[ind] + prev[Transaction+1],prev[Transaction]);
                }else{
-                 profit = max( prices[ind] + dp[ind+1][Transaction+1],dp[ind+1][Transaction]);
+                 profit = max( prices[ind] + prev[Transaction+1],prev[Transaction]);
               }
-              dp[ind][Transaction]=profit;
+              curr[Transaction]=profit;
             }
+            prev = curr;
         }
        
-        return dp[0][0];
+        return prev[0];
     }
 };
