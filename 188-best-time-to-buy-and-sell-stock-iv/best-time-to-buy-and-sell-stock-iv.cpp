@@ -1,28 +1,22 @@
 class Solution {
+    int solveMaxProfit(int k,vector<int>& prices,int Transaction,int ind,int n,vector<vector<int>>& dp){
+        if(ind == n || Transaction == 2 * k ) return 0;
+        if(dp[ind][Transaction] != -1) return dp[ind][Transaction];
+        int profit;
+        if(Transaction % 2==0){
+            profit = max(-prices[ind] + solveMaxProfit(k,prices,Transaction+1,ind+1,n,dp),
+                        solveMaxProfit(k,prices,Transaction,ind+1,n,dp));
+        }else{
+            profit = max( prices[ind] + solveMaxProfit(k,prices,Transaction+1,ind+1,n,dp),
+                        solveMaxProfit(k,prices,Transaction,ind+1,n,dp));
+        }
+        return dp[ind][Transaction]=profit;
+    }
 public:
     int maxProfit(int k, vector<int>& prices) {
         int n = prices.size();
-
-        vector<vector<int>> after(2,vector<int>(k+1,0));
-        vector<vector<int>> curr(2,vector<int>(k+1,0));
-
-        for(int ind=n-1;ind>=0;ind--){
-            for(int buy=0;buy<=1;buy++){
-                for(int cap=1;cap<=k;cap++){
-                 if(buy){
-                        curr[buy][cap] = max(
-                        -prices[ind] + after[0][cap],
-                        0 + after[1][cap]);
-                    }else{
-                        curr[buy][cap] = max(
-                        prices[ind] + after[1][cap-1],
-                        after[0][cap]);
-                  }
-                }
-                after = curr;
-            }
-        }
-
-         return after[1][k];
+        vector<vector<int>> dp(n,vector<int>(2*k,-1));
+       
+        return solveMaxProfit(k,prices,0,0,n,dp);
     }
 };
