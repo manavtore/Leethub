@@ -1,29 +1,30 @@
 class Solution {
-    int coinChangeRecursive(vector<int>& coins,int amount,int ind,vector<vector<int>>& dp){ 
-        if (amount == 0) return 0;
-        if (ind < 0 || amount < 0) return INT_MAX;
-        
-        if(dp[ind][amount] != -1) return dp[ind][amount];
-
-        int exclude = coinChangeRecursive(coins, amount, ind - 1, dp);
-
-        int include = INT_MAX;
-
-        if(coins[ind] <= amount){
-           int res = coinChangeRecursive(coins,amount-coins[ind],ind ,dp);
-             if (res != INT_MAX) {
-                include = 1 + res; 
-            }
-        }
-
-        return dp[ind][amount] = min(exclude,include);
-    }
-    
 public:
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<vector<int>> dp(n+1,vector<int> (amount+1,-1));
-         int result = coinChangeRecursive(coins, amount, coins.size() - 1,dp);
+        vector<vector<int>> dp(n+1,vector<int> (amount+1,INT_MAX));
+
+        for(int i=0;i<n;i++){
+            dp[i][0] = 0;
+        }
+
+        for(int ind=0;ind<n;ind++){
+            for(int amt = 1;amt<=amount;amt++){
+                 int exclude = (ind>0) ? dp[ind - 1][amt] :INT_MAX;
+
+                int include = INT_MAX;
+
+                if(coins[ind] <= amt){
+                int res = dp[ind][amt-coins[ind]];
+                    if (res != INT_MAX) {
+                        include = 1 + res; 
+                 }
+             }
+
+              dp[ind][amt] = min(exclude,include);
+            }
+        }
+         int result = dp[n-1][amount];
         
         return (result == INT_MAX) ? -1 : result;
     }
